@@ -4,4 +4,8 @@
     <string name="Start2">Start2</string>
     <string name="Hola">Hola</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="normal.channel.id">channel.id.notification.normal</string>
+    <string name="normal.channel.name">GO Sharp</string>
+    <string name="title_activity_maps2">Map</string>
 </resources>

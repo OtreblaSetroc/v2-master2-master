@@ -15,6 +15,10 @@ public class SKU {
         this.idforeign = idforeign;
     }
 
+    public SKU() {
+
+    }
+
     public int getIdSku() {
         return idSku;
     }

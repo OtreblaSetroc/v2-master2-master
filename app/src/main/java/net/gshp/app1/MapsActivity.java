@@ -172,7 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(place).title("Marker in here"));
             long i=inserta(l1,l2,a);
             if (i>0){
-                Toast.makeText(MapsActivity.this,"Se inserto correctamente",Toast.LENGTH_LONG).show();
+               // Toast.makeText(MapsActivity.this,"Se inserto correctamente",Toast.LENGTH_LONG).show();
             }
             a+=a;
             CameraPosition camera = new CameraPosition.Builder()

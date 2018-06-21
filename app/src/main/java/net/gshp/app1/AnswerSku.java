@@ -18,9 +18,9 @@ import java.util.List;
 
 public class AnswerSku extends SQLiteOpenHelper {
 
-    String tabla1="create table c_sku(id_sku INTEGER PRIMARY KEY AUTO INCREMENT, value TEXT)";
-    String table2="create table answer_sku(idans INTEGER PRIMARY KEY AUTO INCREMENT, answer INTEGER, idSku INTEGER," +
-            "FOREIGN KEY(idSku) REFERENCES C_sku(id_sku)  ON DELETE CASCADE";
+    String tabla1="create table c_sku(id_sku INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT)";
+    String table2="create table answer_sku(idans INTEGER PRIMARY KEY AUTOINCREMENT, answer INTEGER, idSku INTEGER," +
+            "FOREIGN KEY(idSku) REFERENCES C_sku(id_sku)  ON DELETE CASCADE)";
 
     public AnswerSku(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -56,8 +56,8 @@ public class AnswerSku extends SQLiteOpenHelper {
             db.insert("c_sku",null,contentValues);
         }
         contentValues = new ContentValues();
-        for (int i=0; i<10;i++){
-            contentValues.put("answer",0);
+        for (int i=1; i<=10;i++){
+            contentValues.put("answer",2);
             contentValues.put("idSku",i);
             db.insert("answer_sku",null,contentValues);
         }
@@ -73,6 +73,7 @@ public class AnswerSku extends SQLiteOpenHelper {
             sku= new SKU(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
             sk.add(sku);
         }
+        cursor.close();
         return  sk;
     }
     public void update(SKU sk){
