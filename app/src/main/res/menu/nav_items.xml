@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_start"
+        android:enabled="true"
+        android:icon="@drawable/baseline_launch_black_18dp"
+        android:title="@string/Start"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_start2"
+        android:enabled="true"
+        android:icon="@drawable/baseline_language_black_18dp"
+        android:title="@string/Start2"
+        app:showAsAction="ifRoom" />
+
+
+
+</menu>

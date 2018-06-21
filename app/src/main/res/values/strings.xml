@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">app1</string>
+    <string name="Start">Start</string>
+    <string name="Start2">Start2</string>
+    <string name="Hola">Hola</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
