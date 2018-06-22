@@ -19,6 +19,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<SKU> sku;
     private List<CSKU> ans;
+    private SKU sku1;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -58,11 +59,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CSKU dato = ans.get(position);
         //final SKU sku1=sku.get(position);
+        final SKU us= new SKU();
+        us.setIdSku(dato.getIdCSKU());
+        us.setIdforeign(position);
+
+
         holder.tv.setText(dato.getValor());
+        if (this.sku.size()>0){
+            sku1=sku.get(position);
+            int a = sku1.getValor();
+            if (a==0){
+                holder.radio1.setChecked(true);
+                holder.radio2.setChecked(false);
+            }else {
+
+                holder.radio1.setChecked(false);
+                holder.radio2.setChecked(true);
+            }
+
+        }else{
+            holder.radio1.setChecked(false);
+            holder.radio2.setChecked(false);
+
+        }
 
 
 
-       /* holder.radio1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
+      /* holder.radio1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 String valor = "";
@@ -72,20 +97,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     ans.get(position).setValor("" + valor);
                 }
             }
-        });*/
-
-       /* holder.radio2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        });
+*/
+       holder.radio1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 String valor = "";
                 if(isChecked){
-                    valor = holder.radio2.getText().toString();
-                    holder.radio1.setChecked(false);
-                    ans.get(position).setValor(valor);
+                    us.setValor(0);
+                     sku.add(us);
                 }
             }
         });
-*/
+        holder.radio2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                String valor = "";
+                if(isChecked){
+                    us.setValor(1);
+                    sku.add(us);
+                }
+            }
+        });
+
         /*if (dato.getValor().equalsIgnoreCase("Si")) {
             holder.radio1.setChecked(true);
         } else if (dato.getValor().equalsIgnoreCase("No")) {
@@ -96,7 +130,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }*/
 
     }
+    public List<SKU> getAll1(){
 
+
+        return  sku;
+    }
     @Override
     public int getItemCount() {
         return ans.size();

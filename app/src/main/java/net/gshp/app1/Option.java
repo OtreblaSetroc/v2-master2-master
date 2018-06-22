@@ -23,7 +23,7 @@ public class Option extends AppCompatActivity {
     private List<SKU> answers;
     private List<CSKU> csku;
     private RecyclerView recyclerView;
-
+    private  RecyclerViewAdapter myAdapter;
 
 
 
@@ -37,7 +37,7 @@ public class Option extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         consultaCatalogo();
         consultarLista();
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(csku,answers);
+        myAdapter = new RecyclerViewAdapter(csku,answers);
         recyclerView.setAdapter(myAdapter);
 
 
@@ -54,6 +54,7 @@ public class Option extends AppCompatActivity {
 
         while (cursor.moveToNext()) {
             sku = new SKU();
+
             sku.setValor(cursor.getInt(cursor.getColumnIndex("answer")));
             sku.setIdforeign(cursor.getInt(cursor.getColumnIndex("idSku")));
             answers.add(sku);
@@ -79,7 +80,6 @@ public class Option extends AppCompatActivity {
         while (cursor.moveToNext()) {
             sku = new CSKU();
             sku.setValor(cursor.getString(cursor.getColumnIndex("value")));
-
             csku.add(sku);
         }
         cursor.close();
@@ -103,15 +103,37 @@ public class Option extends AppCompatActivity {
             case R.id.Save:
                // db= answerSku.getWritableDatabase();
                 Toast.makeText(Option.this,"Save1", Toast.LENGTH_LONG).show();
-                for (SKU s:answers) {
-                   int a= updateData(s);
-                }
+                insertar();
 
                 break;
         }
 
 
         return super.onOptionsItemSelected(item);
+    }
+    public  int insertar(){
+        List<SKU> answer2 = myAdapter.getAll1();
+        int a = answer2.size();
+        if (a>0){
+            Toast.makeText(this,"Ya",Toast.LENGTH_SHORT).show();
+
+        }else {
+            Toast.makeText(this,"nel",Toast.LENGTH_SHORT).show();
+        }
+
+       /* SQLiteDatabase db = answerSku.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+       /* for (SKU sk:answers ) {
+            contentValues.put("answer",an);
+        }
+
+
+            contentValues.put("value","SKU"+i);
+            db.insert("c_sku",null,contentValues);*/
+
+
+
+        return  -1;
     }
     public int updateData(SKU sku){
         SQLiteDatabase db = answerSku.getReadableDatabase();

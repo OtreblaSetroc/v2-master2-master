@@ -55,12 +55,12 @@ public class AnswerSku extends SQLiteOpenHelper {
             contentValues.put("value","SKU"+i);
             db.insert("c_sku",null,contentValues);
         }
-        contentValues = new ContentValues();
+        /*contentValues = new ContentValues();
         for (int i=1; i<=10;i++){
             contentValues.put("answer",2);
             contentValues.put("idSku",i);
             db.insert("answer_sku",null,contentValues);
-        }
+        }*/
 
     }
     public List<SKU> getAll(SQLiteDatabase db){
