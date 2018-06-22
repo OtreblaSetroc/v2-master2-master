@@ -63,24 +63,4 @@ public class AnswerSku extends SQLiteOpenHelper {
         }*/
 
     }
-    public List<SKU> getAll(SQLiteDatabase db){
-        String query="Select * from answer_sku ";
-        List<SKU> sk= new ArrayList<>();
-        db=getReadableDatabase();
-        SKU sku;
-        Cursor cursor= db.rawQuery(query,null);
-        while(cursor.moveToNext()){
-            sku= new SKU(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
-            sk.add(sku);
-        }
-        cursor.close();
-        return  sk;
-    }
-    public void update(SKU sk){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("answer",sk.getIdSku());
-        db.update("answer_sku",contentValues,"idans="+sk.getIdSku(),null);
-
-    }
 }

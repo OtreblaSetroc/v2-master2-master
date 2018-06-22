@@ -21,7 +21,6 @@ public class Option extends AppCompatActivity {
     private SQLiteDatabase db;
     private AnswerSku answerSku;
     private List<SKU> answers;
-    private List<CSKU> csku;
     private RecyclerView recyclerView;
     private  RecyclerViewAdapter myAdapter;
 
@@ -35,9 +34,8 @@ public class Option extends AppCompatActivity {
         answers= new ArrayList<>();
         recyclerView = findViewById(R.id.ReciclerV);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        consultaCatalogo();
         consultarLista();
-        myAdapter = new RecyclerViewAdapter(csku,answers);
+        myAdapter = new RecyclerViewAdapter(answers);
         recyclerView.setAdapter(myAdapter);
 
 
@@ -50,39 +48,24 @@ public class Option extends AppCompatActivity {
         SKU sku = null;
         answers = new ArrayList<>();
         //select * from usuarios
-        Cursor cursor = db.rawQuery("SELECT * FROM    c_sku  left join   answer_sku where c_sku.id_sku=answer_sku.idSku ", null);
+        Cursor cursor = db.rawQuery("SELECT s.id_sku,s.value,an.answer FROM    c_sku s  left join   answer_sku an on s.id_sku=an.idSku ", null);
 
         while (cursor.moveToNext()) {
             sku = new SKU();
 
-            sku.setValor(cursor.getInt(cursor.getColumnIndex("answer")));
-            sku.setIdforeign(cursor.getInt(cursor.getColumnIndex("idSku")));
+            sku.setValor(cursor.getString(cursor.getColumnIndex("value")));
+            sku.setIdSku(cursor.getInt(cursor.getColumnIndex("id_sku")));
+            int ans=cursor.getInt(cursor.getColumnIndex("answer"));
+            Toast.makeText(this,ans+"",Toast.LENGTH_SHORT).show();
+            sku.setAnswer(ans);
             answers.add(sku);
         }
-        if (!answers.isEmpty()){
-            Toast.makeText(this,answers.size()+" "+answers.get(0).getValor(),Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this,"nel",Toast.LENGTH_SHORT).show();
-        }
+
         cursor.close();
 
 
 
 
-    }
-    public  void consultaCatalogo(){
-        SQLiteDatabase db = answerSku.getReadableDatabase();
-        CSKU sku = null;
-        csku = new ArrayList<>();
-        //select * from usuarios
-        Cursor cursor = db.rawQuery("SELECT * FROM  c_sku  ", null);
-
-        while (cursor.moveToNext()) {
-            sku = new CSKU();
-            sku.setValor(cursor.getString(cursor.getColumnIndex("value")));
-            csku.add(sku);
-        }
-        cursor.close();
     }
     @Override
     protected void onResume() {
@@ -111,15 +94,17 @@ public class Option extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public  int insertar(){
-        List<SKU> answer2 = myAdapter.getAll1();
-        int a = answer2.size();
-        if (a>0){
+    public  void insertar(){
+        SQLiteDatabase db = answerSku.getReadableDatabase();
             Toast.makeText(this,"Ya",Toast.LENGTH_SHORT).show();
+            db.delete("answer_sku",null,null);
+            for (SKU s :answers ) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("answer",s.getAnswer());
+                contentValues.put("idSku",s.getIdSku());
+               db.insert("answer_sku",null,contentValues);
+            }
 
-        }else {
-            Toast.makeText(this,"nel",Toast.LENGTH_SHORT).show();
-        }
 
        /* SQLiteDatabase db = answerSku.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -133,7 +118,6 @@ public class Option extends AppCompatActivity {
 
 
 
-        return  -1;
     }
     public int updateData(SKU sku){
         SQLiteDatabase db = answerSku.getReadableDatabase();

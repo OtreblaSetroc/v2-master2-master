@@ -6,18 +6,8 @@ package net.gshp.app1;
 
 public class SKU {
     private int idSku;
-    private int valor;
-    private int idforeign;
-
-    public SKU(int idSku, int valor, int idforeign) {
-        this.idSku = idSku;
-        this.valor = valor;
-        this.idforeign = idforeign;
-    }
-
-    public SKU() {
-
-    }
+    private String valor;
+    private int answer;
 
     public int getIdSku() {
         return idSku;
@@ -28,21 +18,21 @@ public class SKU {
         return this;
     }
 
-    public int getValor() {
+    public String getValor() {
         return valor;
     }
 
-    public SKU setValor(int valor) {
+    public SKU setValor(String valor) {
         this.valor = valor;
         return this;
     }
 
-    public int getIdforeign() {
-        return idforeign;
+    public int getAnswer() {
+        return answer;
     }
 
-    public SKU setIdforeign(int idforeign) {
-        this.idforeign = idforeign;
+    public SKU setAnswer(int answer) {
+        this.answer = answer;
         return this;
     }
 }
